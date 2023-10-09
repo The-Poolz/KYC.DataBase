@@ -1,0 +1,53 @@
+name: Deploy and Update on Release
+on:
+  release:
+    types:
+      - published
+env:
+  GITHUB_PACKAGE_USER_NAME: ${{ github.actor }}
+  GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  deploy_and_update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Release Tag
+        id: get_release_tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Parse environment from tag
+        id: parse_env
+        shell: bash
+        run: |
+          if [[ "${{ env.tag }}" == *"-stage"* ]]; then
+            echo "CONFIGUREDSQLCONNECTION_ACTION_CONNECTION=${{ secrets.PART_OF_CONNECTION }}${{ secrets.STAGE_DB_NAME }}" >> $GITHUB_ENV
+          else
+            echo "CONFIGUREDSQLCONNECTION_ACTION_CONNECTION=${{ secrets.PART_OF_CONNECTION }}${{ secrets.PROD_DB_NAME }}" >> $GITHUB_ENV
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Build and Publish
+        run: |
+          dotnet build
+          dotnet publish -o build-output
+
+      - name: Deploy EF Core Migrations
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -c KycDbContext -p ./src/KYC.DataBase/KYC.DataBase.csproj -s ./src/KYC.DataBase/KYC.DataBase.csproj
+
+      - name: Package and Push NuGet Package to GitHub Packages
+        if: contains(env.tag, '-prod')
+        run: |
+          dotnet pack ./src/KYC.DataBase/KYC.DataBase.csproj --configuration Release --output nupkg/
+          nuget push nupkg/*.nupkg -Source https://nuget.pkg.github.com/The-Poolz/index.json -ApiKey ${{ secrets.GITHUB_TOKEN }}
