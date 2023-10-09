@@ -14,4 +14,14 @@ public class KycDbContext : DbContext
             .ConfigureFromActionConnection()
             .ConfigureFromSecretConnection();
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => new { e.Guid, e.Status });
+        });
+    }
 }
