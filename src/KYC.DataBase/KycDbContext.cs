@@ -6,6 +6,12 @@ namespace KYC.DataBase;
 
 public class KycDbContext : DbContext
 {
+    protected KycDbContext() { }
+
+    protected KycDbContext(DbContextOptions<KycDbContext> options)
+        : base(options)
+    { }
+
     public virtual DbSet<User> Users { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
