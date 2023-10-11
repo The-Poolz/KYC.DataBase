@@ -6,9 +6,9 @@ namespace KYC.DataBase;
 
 public class KycDbContext : DbContext
 {
-    protected KycDbContext() { }
+    public KycDbContext() { }
 
-    protected KycDbContext(DbContextOptions<KycDbContext> options)
+    public KycDbContext(DbContextOptions<KycDbContext> options)
         : base(options)
     { }
 
