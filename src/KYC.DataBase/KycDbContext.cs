@@ -27,7 +27,7 @@ public class KycDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => new { e.Guid, e.Status });
+            entity.HasKey(e => new { e.RecordId, e.RefId });
         });
     }
 }

@@ -2,9 +2,7 @@
 
 public class User
 {
-    public string Guid { get; set; } = null!;
     public string Status { get; set; } = null!;
-    public string ClientId { get; set; } = null!;
     public string RecordId { get; set; } = null!;
     public string? RefId { get; set; }
     public int? SubmitCount { get; set; }
