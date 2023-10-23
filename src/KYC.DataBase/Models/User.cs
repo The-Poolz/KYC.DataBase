@@ -4,6 +4,7 @@ public class User
 {
     public string Status { get; set; } = null!;
     public string RecordId { get; set; } = null!;
+    public string? RefId { get; set; }
     public int? SubmitCount { get; set; }
     public string? BlockPassID { get; set; }
     public bool? IsArchived { get; set; }
