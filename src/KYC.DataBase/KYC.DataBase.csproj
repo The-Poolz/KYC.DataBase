@@ -1,13 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.6</Version>
-    <PackageReleaseNotes>https://github.com/The-Poolz/KYC.DataBase/releases/tag/v1.0.6-prod</PackageReleaseNotes>
+    <Version>1.0.7</Version>
+    <PackageReleaseNotes>https://github.com/The-Poolz/KYC.DataBase/releases/tag/v1.0.7-stage</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="ConfiguredSqlConnection" Version="1.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
@@ -15,5 +13,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
 </Project>
