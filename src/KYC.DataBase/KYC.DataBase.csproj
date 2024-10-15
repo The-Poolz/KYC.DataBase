@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>1.0.7</Version>
-    <PackageReleaseNotes>https://github.com/The-Poolz/KYC.DataBase/releases/tag/v1.0.7-stage</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/The-Poolz/KYC.DataBase/releases/tag/1.0.7-prod</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ConfiguredSqlConnection" Version="1.2.0" />
