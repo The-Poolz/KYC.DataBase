@@ -20,7 +20,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '8.0.8'
 
       - name: Build the project
         run: dotnet build
@@ -51,7 +51,7 @@ jobs:
           Write-Host "Updating .csproj with version $version and PackageReleaseNotes"
           [xml]$csproj = Get-Content -Path ./src/KYC.DataBase/KYC.DataBase.csproj
           $csproj.Project.PropertyGroup.Version = $version
-          $releaseNotes = "https://github.com/$repository/releases/tag/$tag"
+          $releaseNotes = "https://github.com/$repository/releases/tag/$version-prod"
           $csproj.Project.PropertyGroup.PackageReleaseNotes = $releaseNotes
           $csproj.Save("$(PWD)/src/KYC.DataBase/KYC.DataBase.csproj")
 
@@ -83,7 +83,7 @@ jobs:
 
       - name: Deploy EF Core Migrations
         run: |
-          dotnet tool install --global dotnet-ef --version 8.0.0
+          dotnet tool install --global dotnet-ef --version 8.0.8
           dotnet tool restore
           dotnet ef database update -c KycDbContext -p ./src/KYC.DataBase/KYC.DataBase.csproj -s ./src/KYC.DataBase/KYC.DataBase.csproj
 
