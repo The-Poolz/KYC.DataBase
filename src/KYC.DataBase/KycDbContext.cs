@@ -1,6 +1,8 @@
 ﻿using KYC.DataBase.Models;
+using KYC.DataBase.Models.Types;
 using Microsoft.EntityFrameworkCore;
 using ConfiguredSqlConnection.Extensions;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KYC.DataBase;
 
@@ -28,6 +30,8 @@ public class KycDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.RecordId);
+            entity.Property(e => e.Status)
+                .HasConversion(new EnumToStringConverter<Status>());
         });
     }
 }

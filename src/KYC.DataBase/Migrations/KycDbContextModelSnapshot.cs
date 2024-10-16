@@ -54,7 +54,7 @@ namespace KYC.DataBase.Migrations
 
                     b.HasKey("RecordId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }
